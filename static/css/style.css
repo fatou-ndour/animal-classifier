@@ -1,0 +1,156 @@
+:root {
+  --ink: #17252e;
+  --ink-soft: #55656d;
+  --paper: #eef2f1;
+  --surface: #ffffff;
+  --line: #cfd9d6;
+  --accent: #1e7b5c;
+  --accent-dark: #165e46;
+  --accent-tint: #e1f1ea;
+  --warn: #9a5b0b;
+  --warn-tint: #fbefd9;
+  --danger: #a32a2a;
+  --radius: 14px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #e8efed;
+    --ink-soft: #9db0aa;
+    --paper: #11191d;
+    --surface: #1a252a;
+    --line: #2e3d43;
+    --accent: #3fb68b;
+    --accent-dark: #5fcba3;
+    --accent-tint: #173a30;
+    --warn: #e6b05a;
+    --warn-tint: #3a2d14;
+    --danger: #f08a8a;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 3rem 1.25rem 2rem;
+}
+
+.intro h1 {
+  margin: 0 0 .5rem;
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.intro p {
+  margin: 0;
+  max-width: 56ch;
+  color: var(--ink-soft);
+  font-size: 1.1rem;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2.25rem;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+/* --- Zone de dépôt --- */
+.dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  border: 2px dashed var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  text-align: center;
+  transition: border-color .15s, background-color .15s;
+}
+.dropzone:hover,
+.dropzone.is-dragover { border-color: var(--accent); background: var(--accent-tint); }
+.dropzone:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.dropzone-text { display: grid; gap: .25rem; padding: 1.5rem; }
+.dropzone-text strong { font-size: 1.15rem; }
+.dropzone-text span { color: var(--ink-soft); }
+.dropzone-text small { color: var(--ink-soft); margin-top: .5rem; }
+
+.preview { display: block; width: 100%; height: 300px; object-fit: contain; }
+.preview[hidden], [hidden] { display: none !important; }
+
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  padding: .7rem 1.2rem;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+.btn:hover { border-color: var(--ink-soft); }
+.btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+
+/* --- Résultat --- */
+.result { display: flex; flex-direction: column; justify-content: center; min-height: 300px; }
+.placeholder { margin: 0; color: var(--ink-soft); text-align: center; }
+.error { margin: 0; color: var(--danger); font-weight: 600; }
+
+.verdict-emoji { margin: 0; font-size: 3.5rem; line-height: 1; }
+#verdict-title { margin: .5rem 0 .25rem; font-size: 2rem; letter-spacing: -0.02em; }
+.verdict-note { margin: 0 0 1.25rem; color: var(--ink-soft); }
+.verdict-note.is-unsure {
+  color: var(--warn);
+  background: var(--warn-tint);
+  padding: .5rem .75rem;
+  border-radius: 8px;
+}
+
+.bars { list-style: none; margin: 0; padding: 0; display: grid; gap: .9rem; }
+.bar-head { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: .3rem; }
+.bar-track { height: 12px; background: var(--paper); border-radius: 99px; overflow: hidden; }
+.bar-fill {
+  height: 100%;
+  width: 0;
+  background: var(--line);
+  border-radius: 99px;
+  transition: width .6s ease-out;
+}
+.bar.is-best .bar-fill { background: var(--accent); }
+
+.footer { margin-top: 2.5rem; color: var(--ink-soft); font-size: .9rem; }
+
+@media (max-width: 760px) {
+  .workspace { grid-template-columns: 1fr; }
+  .page { padding-top: 2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar-fill, .dropzone { transition: none; }
+}

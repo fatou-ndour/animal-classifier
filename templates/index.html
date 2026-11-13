@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chat, chien ou oiseau ?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <main class="page">
+    <header class="intro">
+      <h1>Chat, chien ou oiseau&nbsp;?</h1>
+      <p>Envoyez une photo : un réseau de neurones convolutif (CNN) devine l’animal et indique son degré de certitude.</p>
+    </header>
+
+    <section class="workspace">
+      <div class="panel">
+        <label class="dropzone" id="dropzone" for="file-input" tabindex="0">
+          <img id="preview" class="preview" alt="Aperçu de l’image choisie" hidden>
+          <div class="dropzone-text" id="dropzone-text">
+            <strong>Déposez une image ici</strong>
+            <span>ou cliquez pour parcourir vos fichiers</span>
+            <small>JPG, PNG ou WEBP · 5&nbsp;Mo maximum</small>
+          </div>
+        </label>
+        <input type="file" id="file-input" accept="image/png,image/jpeg,image/webp" hidden>
+        <div class="actions">
+          <button type="button" id="predict-btn" class="btn btn-primary" disabled>Identifier l’animal</button>
+          <button type="button" id="reset-btn" class="btn" hidden>Choisir une autre image</button>
+        </div>
+      </div>
+
+      <div class="panel result" id="result" aria-live="polite">
+        <p class="placeholder" id="placeholder">Le résultat s’affichera ici.</p>
+        <p class="error" id="error" role="alert" hidden></p>
+
+        <div id="result-content" hidden>
+          <p class="verdict-emoji" id="verdict-emoji"></p>
+          <h2 id="verdict-title"></h2>
+          <p class="verdict-note" id="verdict-note"></p>
+          <ul class="bars" id="bars"></ul>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Projet scolaire · Flask, TensorFlow/Keras, MobileNetV2
+    </footer>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
